@@ -25,9 +25,9 @@ function ExerciseFilter({
   };
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 mb-10">
       {categories.map((category, index) => (
-        <div key={index} className="flex items-center space-x-2">
+        <div key={index} className="items-center space-x-2">
           <input
             type="radio"
             id={category}
