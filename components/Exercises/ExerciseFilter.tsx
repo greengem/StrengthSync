@@ -10,6 +10,7 @@ function ExerciseFilter({
   setSelectedCategory,
 }: ExerciseFilterProps) {
   const categories = [
+    'all',
     'cardio',
     'olympic weightlifting',
     'stretching',
@@ -21,26 +22,20 @@ function ExerciseFilter({
 
   const handleCategoryChange = (newCategory: string) => {
     console.log('Category changed to:', newCategory);
-    setSelectedCategory(newCategory);
+    
+    setSelectedCategory(newCategory === 'all' ? '' : newCategory);
   };
 
   return (
-    <div className="space-y-2 mb-10">
+    <div className="tabs tabs-boxed mb-5">
       {categories.map((category, index) => (
-        <div key={index} className="items-center space-x-2">
-          <input
-            type="radio"
-            id={category}
-            name="exerciseCategory"
-            value={category}
-            checked={selectedCategory === category}
-            onChange={() => handleCategoryChange(category)}
-            className="radio radio-primary"
-          />
-          <label htmlFor={category} className="text-gray-600">
-            {category.charAt(0).toUpperCase() + category.slice(1)}
-          </label>
-        </div>
+        <a 
+          key={index}
+          className={`tab ${selectedCategory === (category === 'all' ? '' : category) ? 'tab-active' : ''}`}
+          onClick={() => handleCategoryChange(category)}
+        >
+          {category === 'all' ? 'All' : category.charAt(0).toUpperCase() + category.slice(1)} 
+        </a>
       ))}
     </div>
   );

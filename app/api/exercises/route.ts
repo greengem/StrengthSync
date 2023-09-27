@@ -1,10 +1,15 @@
+import { db } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
-import { sql } from "@vercel/postgres";
 
-export async function GET(request: Request) {
-  const category = new URL(request.url).searchParams.get('category');
-  
-  const { rows } = await sql`SELECT name, category FROM exercises WHERE category=${category} LIMIT 500`;
+export async function GET() {
+  const client = await db.connect();
+  let exercises;
 
-  return NextResponse.json(rows);
+  try {
+    exercises = await client.sql`SELECT id, name, category FROM exercises;`;
+  } catch (error) {
+    return NextResponse.json({ error });
+  }
+
+  return NextResponse.json({ data: exercises });
 }
