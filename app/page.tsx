@@ -7,7 +7,7 @@ export default function Profile() {
   return (
     <PageContainer>
       <Heading title='Profile' />
-      <AvatarBlock name="John Doe" avatar="https://github.com/shadcn.png" workouts={5} />
+      <AvatarBlock name="John Doe" avatar="https://picsum.photos/200" workouts={5} />
       <Dashboard />
     </PageContainer>
   )

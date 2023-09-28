@@ -6,7 +6,7 @@ export async function GET() {
   let exercises;
 
   try {
-    exercises = await client.sql`SELECT id, name, category FROM exercises;`;
+    exercises = await client.sql`SELECT id, name, category FROM exercises LIMIT 2;`;
   } catch (error) {
     return NextResponse.json({ error });
   }

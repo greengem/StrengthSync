@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 type AvatarBlockProps = {
     name: string;
     avatar: string;
@@ -9,7 +11,11 @@ const AvatarBlock: React.FC<AvatarBlockProps> = ({ name, avatar, workouts }) => 
         <div className="flex items-center space-x-4 mb-10">
             <div className="avatar">
                 <div className="w-24 rounded-full">
-                    <img src={avatar} />
+                    <Image 
+                        src={avatar}
+                        alt='Avatar'
+                        width={200}
+                        height={200} />
                 </div>
             </div>
             <div className="flex flex-col">
