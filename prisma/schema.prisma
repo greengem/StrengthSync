@@ -1,0 +1,136 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+enum Muscle {
+  abdominals
+  hamstrings
+  adductors
+  quadriceps
+  biceps
+  shoulders
+  chest
+  middleBack @map("middle back")
+  calves
+  glutes
+  lowerBack @map("lower back")
+  lats
+  triceps
+  traps
+  forearms
+  neck
+  abductors
+}
+
+enum ForceType {
+  pull
+  push
+  static
+}
+
+enum LevelType {
+  beginner
+  intermediate
+  expert
+}
+
+enum MechanicType {
+  compound
+  isolation
+}
+
+enum EquipmentType {
+  bodyOnly @map("body only")
+  machine
+  other
+  foamRoll @map("foam roll")
+  kettlebells
+  dumbbell
+  cable
+  barbell
+  bands
+  medicineBall @map("medicine ball")
+  exerciseBall @map("exercise ball")
+  ezCurlBar @map("e-z curl bar")
+}
+
+enum CategoryType {
+  strength
+  stretching
+  plyometrics
+  strongman
+  powerlifting
+  cardio
+  olympicWeightlifting @map("olympic weightlifting")
+}
+
+model User {
+  id           String              @id @default(uuid())
+  name         String
+  email        String              @unique
+  avatarUrl    String?
+  lastLogin    DateTime?           // Track when the user last logged in
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  workoutLogs  WorkoutLog[]
+  workoutPlans WorkoutPlan[]
+}
+
+model WorkoutLog {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  date      DateTime
+  comments  String?
+  notes     String?               // Personal notes about the workout
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Exercise {
+  id               String         @id @default(uuid())
+  name             String
+  aliases          String[]
+  primary_muscles  Muscle[]
+  secondary_muscles Muscle[]
+  force            ForceType
+  level            LevelType
+  mechanic         MechanicType
+  equipment        EquipmentType
+  category         CategoryType
+  instructions     String[]
+  description      String?
+  tips             String[]
+  date_created     DateTime      @default(now())
+  date_updated     DateTime      @updatedAt
+  workoutPlans     WorkoutPlanExercise[]
+}
+
+model WorkoutPlan {
+  id      String                  @id @default(uuid())
+  name    String
+  userId  String
+  user    User                    @relation(fields: [userId], references: [id])
+  exercises WorkoutPlanExercise[]
+  createdAt DateTime              @default(now())
+  updatedAt DateTime              @updatedAt
+}
+
+model WorkoutPlanExercise {
+  workoutPlanId String
+  workoutPlan   WorkoutPlan       @relation(fields: [workoutPlanId], references: [id])
+  exerciseId    String
+  exercise      Exercise          @relation(fields: [exerciseId], references: [id])
+  sets          Int
+  reps          Int
+  duration      Int?              // Duration in seconds (can be null for non-time-based exercises)
+  order         Int
+
+  @@id([workoutPlanId, exerciseId])
+}
