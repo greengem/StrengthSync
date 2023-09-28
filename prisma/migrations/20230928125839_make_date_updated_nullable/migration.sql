@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Exercise" ALTER COLUMN "date_updated" DROP NOT NULL,
+ALTER COLUMN "date_updated" SET DEFAULT CURRENT_TIMESTAMP;

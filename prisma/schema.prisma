@@ -5,7 +5,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 enum Muscle {
@@ -99,16 +98,16 @@ model Exercise {
   aliases          String[]
   primary_muscles  Muscle[]
   secondary_muscles Muscle[]
-  force            ForceType
+  force            ForceType?
   level            LevelType
-  mechanic         MechanicType
-  equipment        EquipmentType
+  mechanic         MechanicType?
+  equipment        EquipmentType?
   category         CategoryType
   instructions     String[]
   description      String?
   tips             String[]
   date_created     DateTime      @default(now())
-  date_updated     DateTime      @updatedAt
+  date_updated   DateTime? @default(now())
   workoutPlans     WorkoutPlanExercise[]
 }
 
