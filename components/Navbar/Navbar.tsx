@@ -1,42 +1,64 @@
+'use client'
+import React from "react";
+import {  Navbar,   NavbarBrand,   NavbarContent,   NavbarItem,   NavbarMenuToggle,  NavbarMenu,  NavbarMenuItem} from "@nextui-org/navbar";
+import { Link } from "@nextui-org/link";
+import { Button } from "@nextui-org/button";
 import { useSession, signIn, signOut } from "next-auth/react"
-import Link from 'next/link'
+import NextLink from 'next/link'
 
-export default function Navbar() {
+export default function AppNavbar() {
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const { data: session } = useSession()
-
     return (
-        <div className="navbar bg-base-100">
-            <div className="navbar-start">
-                <div className="dropdown">
-                    <label tabIndex={0} className="btn btn-ghost lg:hidden">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
-                    </label>
-                    {session && (
-                        <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                            <li><Link href='/'>Profile</Link></li>
-                            <li><Link href='/history'>History</Link></li>
-                            <li><Link href='/exercises'>Exercises</Link></li>
-                        </ul>
-                    )}
-                </div>
-                <a className="btn btn-ghost normal-case text-xl">gymUI</a>
-            </div>
-            {session && (
-                <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
-                        <li><Link href='/'>Profile</Link></li>
-                        <li><Link href='/history'>History</Link></li>
-                        <li><Link href='/exercises'>Exercises</Link></li>
-                    </ul>
-                </div>
-            )}
-            <div className="navbar-end">
-                {session ? (
-                    <button className="btn" onClick={() => signOut()}>Sign out</button>
-                ) : (
-                    <button className="btn" onClick={() => signIn()}>Sign in</button>
-                )}
-            </div>
-        </div>
+<Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="xl">
+      <NavbarContent>
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          className="sm:hidden"
+        />
+        <NavbarBrand>
+          <p className="font-bold text-inherit">GYM</p>
+        </NavbarBrand>
+      </NavbarContent>
+
+      <NavbarContent className="hidden sm:flex gap-4" justify="center">
+        <NavbarItem isActive>
+          <Link color="foreground" href="/">
+            Profile
+          </Link>
+        </NavbarItem>
+
+        <NavbarItem>
+          <Link color="foreground" href="/history" aria-current="page">
+            History
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="/routines">
+            Routines
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="/exercises">
+            Exercises
+          </Link>
+        </NavbarItem>
+      </NavbarContent>
+      <NavbarContent justify="end">
+        <NavbarItem>
+            {session ? (
+          <Button as={Link} color="primary" href="#" variant="flat" onClick={() => signOut()}>
+            Logout
+          </Button>
+          ) : (
+            <Button as={Link} color="primary" href="#" variant="flat" onClick={() => signIn()}>
+            Login
+          </Button>
+          )}
+        </NavbarItem>
+      </NavbarContent>
+      <NavbarMenu>
+      </NavbarMenu>
+    </Navbar>
     )
 }

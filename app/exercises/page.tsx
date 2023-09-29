@@ -59,14 +59,18 @@ export default function ExercisesPage() {
                     exercise.name.toLowerCase().includes(searchTerm.toLowerCase())
                   )
                   .map((exercise) => (
-                    <li key={exercise.id} className='border-b-2 border-gray-500 py-1 '>
-                      <p className='font-semibold'>
-                        {exercise.name}
-                      </p>
-                      <p>
-                        {exercise.category}
-                      </p>
-                    </li>
+<li key={exercise.id} className='bg-gray-200 flex justify-between items-center px-4 py-2 my-1 rounded-md'>
+  <div>
+    <p className='font-semibold mb-1'>
+      {exercise.name}
+    </p>
+    <p className='uppercase text-xs text-gray-500'>
+      {exercise.category}
+    </p>
+  </div>
+  <button className="btn btn-primary">+</button>
+</li>
+
                   ))
                 }
               </ul>

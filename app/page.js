@@ -11,12 +11,11 @@ export default function Profile() {
 
   let name = "Not Logged in";
   let avatar = "https://picsum.photos/200";
-  let workouts = 5; // Or any other default value you'd like
+  let workouts = 0;
 
   if (status === "authenticated") {
     name = session.user.name || "User";
     avatar = session.user.image || avatar;
-    // You can also update the workouts value based on the session data if it's available
   }
 
   return (
