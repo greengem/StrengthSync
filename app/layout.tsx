@@ -1,7 +1,8 @@
 'use client'
-import './globals.css'
+import {Providers} from "./providers";
 import { SessionProvider } from "next-auth/react"
-import Navbar from "@/components/Navbar/Navbar"
+import AppNavbar from "@/components/Navbar/Navbar"
+import './globals.css'
 
 export default function RootLayout({
   children,
@@ -9,11 +10,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className='dark'>
       <body>
-      <SessionProvider>
-        <Navbar />
-          {children}</SessionProvider>
+        <SessionProvider>
+          <Providers>
+            <AppNavbar />
+            {children}
+          </Providers>
+        </SessionProvider>
       </body>
     </html>
   )
