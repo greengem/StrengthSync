@@ -1,4 +1,5 @@
 import React from 'react';
+import { Select, SelectItem } from "@nextui-org/react";
 
 type ExerciseFilterProps = {
   selectedCategory: string;
@@ -20,24 +21,25 @@ function ExerciseFilter({
     'plyometrics',
   ];
 
-  const handleCategoryChange = (newCategory: string) => {
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newCategory = e.target.value;
     console.log('Category changed to:', newCategory);
-    
     setSelectedCategory(newCategory === 'all' ? '' : newCategory);
   };
 
   return (
-    <div className="tabs tabs-boxed mb-5">
-      {categories.map((category, index) => (
-        <a 
-          key={index}
-          className={`tab ${selectedCategory === (category === 'all' ? '' : category) ? 'tab-active' : ''}`}
-          onClick={() => handleCategoryChange(category)}
-        >
-          {category === 'all' ? 'All' : category.charAt(0).toUpperCase() + category.slice(1)} 
-        </a>
+    <Select
+      label="Select a category"
+
+      value={selectedCategory}
+      onChange={handleCategoryChange}
+    >
+      {categories.map((category) => (
+        <SelectItem key={category} value={category === 'all' ? '' : category}>
+          {category === 'all' ? 'All' : category.charAt(0).toUpperCase() + category.slice(1)}
+        </SelectItem>
       ))}
-    </div>
+    </Select>
   );
 }
 
