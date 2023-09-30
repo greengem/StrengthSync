@@ -86,6 +86,14 @@ export default function AppNavbar() {
                     )}
                 </NavbarItem>
             </NavbarContent>
+            <NavbarMenu>
+                <NavbarMenuItem>
+                    <Link as={NextLink} className="w-full" href="/" size="lg">Profile</Link>
+                    <Link as={NextLink} className="w-full" href="/history" size="lg">History</Link>
+                    <Link as={NextLink} className="w-full" href="/routines" size="lg">Routines</Link>
+                    <Link as={NextLink} className="w-full" href="/exercises" size="lg">Exercises</Link>
+                </NavbarMenuItem>
+            </NavbarMenu>
         </Navbar>
     )
 }
