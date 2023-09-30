@@ -45,7 +45,7 @@ export default function RoutineNew() {
         console.log("Payload being sent to the API:", payload);
 
         try {
-            const response = await fetch('/api/routines/save-routine', {
+            const response = await fetch('/api/routines/save', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

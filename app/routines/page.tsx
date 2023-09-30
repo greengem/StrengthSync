@@ -4,48 +4,51 @@ import Heading from '@/components/Layout/Heading'
 import React, { useState, useEffect } from 'react';
 import { Link } from '@nextui-org/link';
 import NextLink from 'next/link';
-import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/card";
-import {Button} from "@nextui-org/button";
-import {  Table,  TableHeader,  TableBody,  TableColumn,  TableRow,  TableCell} from "@nextui-org/table";
-import {Image} from "@nextui-org/react";
-import NextImage from "next/image";
-import { IconArrowLeft } from '@tabler/icons-react';
-
-interface ExerciseDetail {
-  exercise: {
-    id: string;
-    name: string;
-  };
-  sets: number;
-  reps: number;
-  duration: number;
-  order: number;
-}
-
-interface Routine {
-  id: string;
-  name: string;
-  exercises: ExerciseDetail[];
-  createdAt: string;
-  updatedAt: string;
-}
-
+import { Button } from "@nextui-org/button";
+import RoutineList from '@/components/Routines/RoutineList';
+import { Spinner } from "@nextui-org/spinner";
+import { Routine } from '@/components/Routines/types';
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
 
 export default function RoutinesPage() {
   const [routines, setRoutines] = useState<Routine[]>([]);
   const [loading, setLoading] = useState(true);
+  const { isOpen, onOpen, onClose } = useDisclosure(); // Modal state
+  const [selectedRoutineId, setSelectedRoutineId] = useState<string | null>(null); // Selected routine ID for deletion
+
+  const handleDelete = async () => {
+    if (!selectedRoutineId) return;
+    try {
+      const response = await fetch(`/api/routines/delete/${selectedRoutineId}`, { method: 'DELETE' });
+
+      if (response.ok) {
+        const updatedRoutines = routines.filter(routine => routine.id !== selectedRoutineId);
+        setRoutines(updatedRoutines);
+        onClose(); // Close the modal after deletion
+      } else {
+        console.error("Failed to delete routine.");
+      }
+    } catch (error) {
+      console.error("There was an error deleting the routine:", error);
+    }
+  };
+
+  const promptDelete = (routineId: string) => {
+    setSelectedRoutineId(routineId);
+    onOpen();
+  };
 
   const getData = async () => {
     await fetch('/api/routines')
-    .then(res => res.json())
-    .then(data => {
-      setRoutines(data.data);
-      console.log(data.data);
-    })
-    .catch(err => console.log(err))
-    .finally(() => {
-      setLoading(false);
-    });
+      .then(res => res.json())
+      .then(data => {
+        setRoutines(data.data);
+        console.log(data.data);
+      })
+      .catch(err => console.log(err))
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   useEffect(() => {
@@ -58,71 +61,34 @@ export default function RoutinesPage() {
       <Link as={NextLink} href='/routines/new' className='mb-5'>
         <Button color='primary'>New Routine</Button>
       </Link>
-      {
-        loading ?
-          <div className='pt-20 text-center'>
-            <span className="loading loading-infinity loading-lg text-primary"></span>
-          </div>
-        :
-          <div>
-            {
-              routines.length > 0 ?
-<div>
-  {
-    routines.map((routine) => (
-      <Card key={routine.id} className='mb-10'>
-            <CardHeader className="flex gap-3">
-        <Image
-          as={NextImage}
-          alt="nextui logo"
-          height={40}
-          radius="sm"
-          src="/icons/barbell.svg"
-          width={40}
-        />
-        <div className="flex flex-col">
-          <p className="text-md">{routine.name}</p>
-          <p className="text-small text-default-500">{new Date(routine.updatedAt).toLocaleString()}</p>
+      {loading ? (
+        <div className='pt-20 text-center'>
+          <Spinner color="primary" />
         </div>
-      </CardHeader>
-        <CardBody>
-          <Table aria-label="Example static collection table">
-          <TableHeader>
-        <TableColumn>Exercise</TableColumn>
-        <TableColumn>Sets</TableColumn>
-        <TableColumn>Reps</TableColumn>
-        <TableColumn>Time</TableColumn>
-      </TableHeader>
-      <TableBody>
-            {
-              routine.exercises.map((exerciseDetail) => (
-                <TableRow key={exerciseDetail.exercise.id}>
-                  <TableCell>{exerciseDetail.exercise.name}</TableCell>
-                  <TableCell>{exerciseDetail.sets}</TableCell>
-                  <TableCell>{exerciseDetail.reps}</TableCell>
-                  <TableCell>{exerciseDetail.duration} seconds</TableCell>
-                  </TableRow>
-              ))
-            }
-            </TableBody>
-          </Table>
-        </CardBody>
-        <CardFooter className='justify-between'>
-          <Link as={NextLink} href='#' className='mr-2'><Button color='secondary'>Edit</Button></Link>
-          <Link as={NextLink} href='#'><Button color='danger'>Delete</Button></Link>
-        </CardFooter>
-      </Card>
-    ))
-  }
-</div>
+      ) : routines.length > 0 ? (
+        <RoutineList routines={routines} onDelete={promptDelete} />
+      ) : (
+        <p>No data available</p>
+      )}
 
-              :
-              <p>
-                No data available
-              </p>
-            }
-          </div>
-      }
+      <Modal isOpen={isOpen} onOpenChange={onClose}>
+        <ModalContent>
+          <ModalHeader className="flex flex-col gap-1">Delete Confirmation</ModalHeader>
+          <ModalBody>
+            <p>
+              Are you sure you want to delete this routine? This action cannot be undone.
+            </p>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="danger" variant="light" onPress={onClose}>
+              Cancel
+            </Button>
+            <Button color="primary" onPress={handleDelete}>
+              Confirm Delete
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </PageContainer>
   )
 }
