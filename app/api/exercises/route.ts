@@ -16,7 +16,7 @@ export async function GET() {
     const client = await pool.connect();
 
     try {
-      exercises = await client.query('SELECT id, name, category FROM "Exercise";');
+      exercises = await client.query('SELECT id, name, category FROM "Exercise" LIMIT 10;');
     } finally {
       client.release();
     }
