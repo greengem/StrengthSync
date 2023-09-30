@@ -1,4 +1,3 @@
-'use client'
 import React, { useState, useEffect } from "react";
 import { Modal, ModalContent, ModalHeader, ModalBody, Button, useDisclosure } from "@nextui-org/react";
 
@@ -11,7 +10,7 @@ export default function RoutineModal({ onAddExercises }) {
 
   async function fetchExercises() {
     try {
-      const response = await fetch('/api/exercises'); // Adjust the endpoint if it's different
+      const response = await fetch('/api/exercises'); 
       const data = await response.json();
       if (data && data.data) {
         setExercises(data.data.rows || []);
@@ -32,8 +31,9 @@ export default function RoutineModal({ onAddExercises }) {
   }
 
   function handleSubmit() {
+    console.log("Sending exercises:", localSelectedExercises);
     onAddExercises(localSelectedExercises);
-    setLocalSelectedExercises([]);  // Clear the local selection
+    setLocalSelectedExercises([]);
   }
 
   return (
@@ -56,8 +56,8 @@ export default function RoutineModal({ onAddExercises }) {
                     exercises.map(exercise => (
                       <li 
                         key={exercise.id} 
-                        className={localSelectedExercises.includes(exercise.name) ? 'bg-blue-200' : ''}
-                        onClick={() => handleExerciseSelection(exercise.name)}
+                        className={localSelectedExercises.includes(exercise) ? 'bg-blue-200' : ''}
+                        onClick={() => handleExerciseSelection(exercise)}
                       >
                         {exercise.name}
                       </li>
