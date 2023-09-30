@@ -4,7 +4,7 @@ import PageContainer from '@/components/Layout/PageContainer';
 import Heading from '@/components/Layout/Heading';
 import { ExerciseSearch } from '@/components/Exercises/ExerciseSearch';
 import ExerciseFilter from '@/components/Exercises/ExerciseFilter';
-
+import { Button } from '@nextui-org/button';
 interface Exercise {
   id: string;
   name: string;
@@ -59,7 +59,7 @@ export default function ExercisesPage() {
                     exercise.name.toLowerCase().includes(searchTerm.toLowerCase())
                   )
                   .map((exercise) => (
-<li key={exercise.id} className='bg-gray-200 flex justify-between items-center px-4 py-2 my-1 rounded-md'>
+<li key={exercise.id} className='bg-gray-900 flex justify-between items-center px-4 py-2 my-1 rounded-md'>
   <div>
     <p className='font-semibold mb-1'>
       {exercise.name}
@@ -68,7 +68,7 @@ export default function ExercisesPage() {
       {exercise.category}
     </p>
   </div>
-  <button className="btn btn-primary">+</button>
+  <Button>Add</Button>
 </li>
 
                   ))
