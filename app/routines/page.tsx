@@ -39,7 +39,7 @@ export default function RoutinesPage() {
   };
 
   const getData = async () => {
-    await fetch('/api/routines')
+    await fetch('/api/routines', { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
         setRoutines(data.data);
