@@ -15,7 +15,9 @@ export default function RootLayout({
         <SessionProvider>
           <Providers>
             <AppNavbar />
-            {children}
+            <main className="max-w-screen-xl mx-auto">
+              {children}
+            </main>
           </Providers>
         </SessionProvider>
       </body>

@@ -1,3 +1,4 @@
+'use client'
 import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/card";
 import {  Table,  TableHeader,  TableBody,  TableColumn,  TableRow,  TableCell} from "@nextui-org/table";
 export default function HistoryCard() {
@@ -8,31 +9,28 @@ export default function HistoryCard() {
                 <CardBody>
                     <p className="font-semibold mb-0">Workout group name</p>
                     <p>Monday, 4 Sep</p>
-                    <div className="grid grid-cols-3">
+                    <div className="grid grid-cols-3 mb-5">
                         <div>1h 2m</div>
                         <div>5000 kg</div>
                         <div>8 PRs</div>
                     </div>
-                    <div className="overflow-x-auto">
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                    <th>Exercise</th>
-                                    <th>Best Set</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Bench Press</td>
-                                    <td>100kg x 3</td>
-                                </tr>
-                                <tr>
-                                    <td>Deadlift</td>
-                                    <td>200kg x 1</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <Table removeWrapper aria-label="Example static collection table">
+                        <TableHeader>
+                            <TableColumn>EXERCISE</TableColumn>
+                            <TableColumn>BEST SET</TableColumn>
+                        </TableHeader>
+                        <TableBody>
+                            <TableRow key="1">
+                            <TableCell>Bench Press</TableCell>
+                            <TableCell>3 x 100kg</TableCell>
+                            </TableRow>
+                            <TableRow key="2">
+                            <TableCell>Deadlift</TableCell>
+                            <TableCell>3 x 200kg</TableCell>
+                            </TableRow>
+                        </TableBody>
+                        </Table>
+
                 </CardBody>
             </Card>
         </>

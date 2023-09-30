@@ -22,7 +22,6 @@ export default function ExercisesPage() {
     .then(res => res.json())
     .then(data => {
       setExercises(data.data.rows);
-      console.log(data.data.rows);
     })
     .catch(err => console.log(err))
     .finally(() => {

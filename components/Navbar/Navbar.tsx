@@ -25,7 +25,7 @@ export default function AppNavbar() {
                     className="sm:hidden"
                 />
                 <NavbarBrand>
-                    <p className="font-bold text-inherit">GYM</p>
+                    <p className="font-bold text-inherit">GYMAPP</p>
                 </NavbarBrand>
             </NavbarContent>
 
@@ -62,7 +62,7 @@ export default function AppNavbar() {
                                     isBordered
                                     as="button"
                                     className="transition-transform"
-                                    color="secondary"
+                                    color="primary"
                                     name={userName}
                                     size="sm"
                                     src={userImage}

@@ -8,6 +8,9 @@ export default function History() {
         <Heading title='History' />
         <HistoryCard />
         <HistoryCard />
+        <HistoryCard />
+        <HistoryCard />
+        <HistoryCard />
     </PageContainer>
   )
 }

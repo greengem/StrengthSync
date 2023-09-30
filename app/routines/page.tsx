@@ -43,7 +43,6 @@ export default function RoutinesPage() {
       .then(res => res.json())
       .then(data => {
         setRoutines(data.data);
-        console.log(data.data);
       })
       .catch(err => console.log(err))
       .finally(() => {
