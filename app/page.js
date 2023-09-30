@@ -4,7 +4,6 @@ import PageContainer from '@/components/Layout/PageContainer';
 import Heading from '@/components/Layout/Heading';
 import AvatarBlock from '@/components/Layout/AvatarBlock';
 import Dashboard from '@/components/Dashboard/Dashboard';
-import Link from 'next/link';
 
 export default function Profile() {
   const { data: session, status } = useSession();

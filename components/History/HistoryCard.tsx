@@ -1,9 +1,11 @@
+import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/card";
+import {  Table,  TableHeader,  TableBody,  TableColumn,  TableRow,  TableCell} from "@nextui-org/table";
 export default function HistoryCard() {
     return (
         <>
             <p className="mb-3 uppercase text-xs text-gray-500">September 2023</p>
-            <div className="card border-2 mb-10">
-                <div className="card-body p-4">
+            <Card className="mb-5">
+                <CardBody>
                     <p className="font-semibold mb-0">Workout group name</p>
                     <p>Monday, 4 Sep</p>
                     <div className="grid grid-cols-3">
@@ -31,8 +33,8 @@ export default function HistoryCard() {
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
+                </CardBody>
+            </Card>
         </>
     )
 }

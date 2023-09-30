@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import {Avatar, AvatarGroup, AvatarIcon} from "@nextui-org/react";
 
 type AvatarBlockProps = {
     name: string;
@@ -10,13 +11,11 @@ const AvatarBlock: React.FC<AvatarBlockProps> = ({ name, avatar, workouts }) => 
     return (
         <div className="flex items-center space-x-4 mb-10">
             <div className="avatar">
-                <div className="w-24 rounded-full">
-                    <Image 
+                    <Avatar 
                         src={avatar}
-                        alt='Avatar'
-                        width={200}
-                        height={200} />
-                </div>
+                        size='lg'
+                        isBordered 
+                        color="primary" />
             </div>
             <div className="flex flex-col">
                 <span className="font-semibold">{name}</span>

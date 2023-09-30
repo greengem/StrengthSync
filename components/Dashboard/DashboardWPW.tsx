@@ -1,11 +1,13 @@
+import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/card";
+
 export default function DashboardWPW() {
     return (
-        <div className="card border-2">
-            <div className="card-body p-4">
+        <Card>
+            <CardBody>
                 <p className="font-semibold mb-0">Workouts Per Week</p>
                 <p>Activity</p>
                 <p>Chart goes here</p>
-            </div>
-        </div>
+            </CardBody>
+        </Card>
     )
 }
