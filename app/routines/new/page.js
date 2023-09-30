@@ -40,6 +40,7 @@ export default function RoutineNew() {
         try {
             const response = await fetch('/api/routines/save', {
                 method: 'POST',
+                cache: 'no-store',
                 headers: {
                     'Content-Type': 'application/json'
                 },

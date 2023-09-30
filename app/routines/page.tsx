@@ -19,7 +19,10 @@ export default function RoutinesPage() {
   const handleDelete = async () => {
     if (!selectedRoutineId) return;
     try {
-      const response = await fetch(`/api/routines/delete/${selectedRoutineId}`, { method: 'DELETE' });
+      const response = await fetch(`/api/routines/delete/${selectedRoutineId}`, { 
+        method: 'DELETE', 
+        cache: 'no-store'
+      });
 
       if (response.ok) {
         const updatedRoutines = routines.filter(routine => routine.id !== selectedRoutineId);
