@@ -27,12 +27,14 @@ interface Routine {
 }
 
 
-async function getRoutines(): Promise<Routine[]> {
-  const res = await fetch(`http://localhost:3000/api/routines`, { cache: 'no-store' })
-  const routines = await res.json()
+const API_URL = process.env.NEXTAUTH_URL;
 
-  return routines.data
+async function getRoutines(): Promise<Routine[]> {
+  const res = await fetch(`${API_URL}/api/routines`, { cache: 'no-store' });
+  const routines = await res.json();
+  return routines.data;
 }
+
 
 export default async function Routines() {
   const routines = await getRoutines()
