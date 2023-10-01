@@ -1,19 +1,12 @@
 import React from 'react';
 import { Routine, ExerciseDetail } from './types';
-import {
-  Table, 
-  TableHeader, 
-  TableBody, 
-  TableColumn, 
-  TableRow, 
-  TableCell 
-} from "@nextui-org/table";
+import ExerciseTable from '@/components/Routines/ExerciseTable';
 import { 
   Card, 
   CardHeader, 
   CardBody, 
   CardFooter 
-} from "@nextui-org/react";
+} from "@nextui-org/card";
 import { 
   Button 
 } from "@nextui-org/button";
@@ -28,7 +21,6 @@ import NextLink from 'next/link';
 
 export interface RoutineCardProps {
   routine: Routine;
-  onDelete: (routineId: string) => void;
 }
 
 interface ExerciseTableProps {
@@ -53,31 +45,7 @@ const RoutineCardHeader: React.FC<{ routine: Routine }> = ({ routine }) => (
   </CardHeader>
 );
 
-const ExerciseTable: React.FC<ExerciseTableProps> = ({ exercises }) => (
-  <Table removeWrapper aria-label="Routine Exercises">
-    <TableHeader>
-      <TableColumn>Exercise</TableColumn>
-      <TableColumn>Sets</TableColumn>
-      <TableColumn>Reps</TableColumn>
-      <TableColumn>Time</TableColumn>
-    </TableHeader>
-    <TableBody>
-    {exercises.map((exerciseDetail: ExerciseDetail) => (
-        <TableRow key={exerciseDetail.exercise.id}>
-          <TableCell>{exerciseDetail.exercise.name}</TableCell>
-          <TableCell>{exerciseDetail.sets}</TableCell>
-          <TableCell>{exerciseDetail.reps}</TableCell>
-          <TableCell>{exerciseDetail.duration} seconds</TableCell>
-        </TableRow>
-      ))}
-    </TableBody>
-  </Table>
-);
-
-const RoutineCard: React.FC<RoutineCardProps> = ({ routine, onDelete }) => {
-  const handleDelete = () => {
-    onDelete(routine.id);
-  };
+const RoutineCard: React.FC<RoutineCardProps> = ({ routine }) => {
 
   return (
     <Card className='mb-10'>
@@ -89,7 +57,7 @@ const RoutineCard: React.FC<RoutineCardProps> = ({ routine, onDelete }) => {
         <Link as={NextLink} href='#' className='mr-2'>
           <Button color='secondary'>Edit</Button>
         </Link>
-        <Button color='danger' onClick={handleDelete}>Delete</Button>
+        <Button color='danger'>Delete</Button>
       </CardFooter>
     </Card>
   );
