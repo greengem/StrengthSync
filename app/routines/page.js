@@ -6,8 +6,8 @@ import NextLink from 'next/link';
 import { Button } from "@nextui-org/button";
 import RoutineCard from '@/components/Routines/RoutineCard';
 
-export default async function Routines() {
-  const routines = await prisma.workoutPlan.findMany({
+async function fetchRoutinesFromDB() {
+  return await prisma.workoutPlan.findMany({
     select: {
       id: true,
       name: true,
@@ -29,6 +29,10 @@ export default async function Routines() {
       updatedAt: true,
     }
   });
+}
+
+export default async function Routines() {
+  const routines = await fetchRoutinesFromDB();
 
   return (
     <PageContainer>
