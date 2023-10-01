@@ -1,7 +1,7 @@
-
+'use client'
 import {Providers} from "./providers";
-
-//import AppNavbar from "@/components/Navbar/Navbar"
+import { SessionProvider } from "next-auth/react"
+import AppNavbar from "@/components/Navbar/Navbar"
 import './globals.css'
 
 export default function RootLayout({
@@ -12,12 +12,14 @@ export default function RootLayout({
   return (
     <html lang="en" className='dark'>
       <body>
+        <SessionProvider>
           <Providers>
-
+            <AppNavbar />
             <main className="max-w-screen-xl mx-auto">
               {children}
             </main>
           </Providers>
+        </SessionProvider>
       </body>
     </html>
   )

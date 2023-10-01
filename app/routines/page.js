@@ -6,6 +6,8 @@ import NextLink from 'next/link';
 import { Button } from "@nextui-org/button";
 import RoutineCard from '@/components/Routines/RoutineCard';
 
+export const dynamic = 'force-dynamic';
+
 async function fetchRoutinesFromDB() {
   return await prisma.workoutPlan.findMany({
     select: {
