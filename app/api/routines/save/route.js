@@ -5,12 +5,14 @@ export async function POST(request) {
   const data = JSON.parse(rawData);
 
   const userId = "cln4dplo80000gwz1joipss3e"; // Use the specific user ID
-  const { routineName, exercises } = data;
+  const { routineName, exercises, notes } = data;
+
 
   try {
     const newWorkoutPlan = await prisma.workoutPlan.create({
       data: {
         name: routineName,
+        notes: notes,
         userId: userId,
         exercises: {
           create: exercises.map((exercise, index) => ({

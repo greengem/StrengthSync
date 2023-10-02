@@ -30,9 +30,6 @@ export default function RoutineNew() {
         const formattedExercises = newExercises.map(exercise => ({
             id: exercise.id,
             name: exercise.name,
-            sets: 3,
-            reps: 3,
-            duration: 3
         }));
         setSelectedExercises(prevExercises => [...prevExercises, ...formattedExercises]);
     }
@@ -96,7 +93,7 @@ export default function RoutineNew() {
                                             placeholder={capitalize(columnKey)}
                                             value={exercise[columnKey]}
                                             onChange={(value) => {
-                                                const numericValue = parseInt(value, 10);
+                                                const numericValue = parseInt(event.target.value, 10);
                                                 const updatedExercises = [...selectedExercises];
                                                 const index = selectedExercises.findIndex(ex => ex.id === exercise.id);
                                                 updatedExercises[index][columnKey] = isNaN(numericValue) ? 0 : numericValue;
