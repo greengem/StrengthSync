@@ -15,7 +15,7 @@ interface ExerciseTableProps {
 }
 
 const ExerciseTable: React.FC<ExerciseTableProps> = ({ exercises }) => (
-  <Table aria-label="Routine Exercises">
+  <Table removeWrapper aria-label="Routine Exercises">
     <TableHeader>
       <TableColumn>Exercise</TableColumn>
       <TableColumn>Sets</TableColumn>

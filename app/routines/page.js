@@ -13,6 +13,7 @@ async function fetchRoutinesFromDB() {
     select: {
       id: true,
       name: true,
+      notes: true,
       exercises: {
         select: {
           exercise: {

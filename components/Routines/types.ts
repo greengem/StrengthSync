@@ -12,6 +12,7 @@ export interface ExerciseDetail {
   export interface Routine {
     id: string;
     name: string;
+    notes: string;
     exercises: ExerciseDetail[];
     createdAt: string;
     updatedAt: string;

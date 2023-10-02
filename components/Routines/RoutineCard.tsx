@@ -50,7 +50,11 @@ const RoutineCard: React.FC<RoutineCardProps> = ({ routine }) => {
   return (
     <Card className='mb-10'>
       <RoutineCardHeader routine={routine} />
-      <CardBody>
+      <CardBody className='pt-1'>
+      {routine.notes && routine.notes.trim().length > 0 && (
+        <p className='text-sm text-gray-500 mb-3'>Notes: {routine.notes}</p>
+      )}
+
         <ExerciseTable exercises={routine.exercises} />
       </CardBody>
       <CardFooter className='justify-between'>
