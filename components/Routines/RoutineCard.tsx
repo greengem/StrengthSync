@@ -57,12 +57,12 @@ const RoutineCard: React.FC<RoutineCardProps> = ({ routine }) => {
 
         <ExerciseTable exercises={routine.exercises} />
       </CardBody>
-      <CardFooter className='justify-between'>
-        <Link as={NextLink} href='#' className='mr-2'>
+      <CardFooter>
+        <Link as={NextLink} href={`/routines/edit/${routine.id}`} className='mr-2'>
           <Button color='secondary'>Edit</Button>
         </Link>
-        <Button color='danger'>Delete</Button>
       </CardFooter>
+
     </Card>
   );
 }
